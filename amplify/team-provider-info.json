@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-familycarouselnuxt-dev-220949-authRole",
+      "UnauthRoleArn": "arn:aws:iam::734980667868:role/amplify-familycarouselnuxt-dev-220949-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::734980667868:role/amplify-familycarouselnuxt-dev-220949-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-familycarouselnuxt-dev-220949-deployment",
+      "UnauthRoleName": "amplify-familycarouselnuxt-dev-220949-unauthRole",
+      "StackName": "amplify-familycarouselnuxt-dev-220949",
+      "StackId": "arn:aws:cloudformation:us-east-2:734980667868:stack/amplify-familycarouselnuxt-dev-220949/04910af0-0c30-11eb-9dce-0a96521365a0",
+      "AmplifyAppId": "d33yaaow5r36xe"
+    },
+    "categories": {
+      "auth": {
+        "familycarouselnuxtd631b892": {}
+      }
+    }
+  }
+}

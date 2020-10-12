@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "familycarouselnuxtd631b892": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
