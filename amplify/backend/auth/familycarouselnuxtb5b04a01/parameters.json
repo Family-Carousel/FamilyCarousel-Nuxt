@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "familycarouselnuxtd631b892_identitypool_d631b892",
+    "identityPoolName": "familycarouselnuxtb5b04a01_identitypool_b5b04a01",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "familyd631b892",
-    "userPoolName": "familycarouselnuxtd631b892_userpool_d631b892",
+    "resourceNameTruncated": "familyb5b04a01",
+    "userPoolName": "familycarouselnuxtb5b04a01_userpool_b5b04a01",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -18,9 +18,7 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "birthdate",
-        "email",
-        "given_name"
+        "email"
     ],
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
@@ -30,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "familyd631b892_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "familyb5b04a01_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "d631b892",
-    "resourceName": "familycarouselnuxtd631b892",
+    "sharedId": "b5b04a01",
+    "resourceName": "familycarouselnuxtb5b04a01",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -51,12 +49,7 @@
     "usernameAttributes": [
         "email"
     ],
-    "triggers": "{}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "permissions": [],
     "dependsOn": []
 }

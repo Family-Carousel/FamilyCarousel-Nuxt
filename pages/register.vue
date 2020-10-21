@@ -1,16 +1,15 @@
 <template>
   <v-row>
+    <v-col />
     <v-col>
-      <h1 text-center>
-        Register
-      </h1>
-    </v-col>
-    <!-- Unauthenticated -->
-    <v-col>
-      <!-- Register -->
-      <v-form v-if="step === steps.register">
-        <v-text-field v-model="registerForm.email" placeholder="Email" />
-        <v-text-field v-model="registerForm.givenName" placeholder="Name" />
+      <div v-if="step === steps.register">
+        <v-card class="mx-auto" max-width="600">
+          <v-img class="align-end" contain height="200" src="/logo2.png" />
+          <div v-if="step === 'REGISTER'">
+            <v-card-title>Create a account to get started</v-card-title>
+            <v-card-text>
+              <v-text-field v-model="registerForm.email" placeholder="Email" />
+              <!-- <v-text-field v-model="registerForm.givenName" placeholder="Name" />
         <v-menu
           ref="menu"
           v-model="menu"
@@ -34,36 +33,42 @@
             min="1950-01-01"
             @change="save"
           />
-        </v-menu>
-        <v-text-field
-          v-model="registerForm.password"
-          placeholder="Password"
-          :type="'password'"
-        />
-        <v-btn class="success" @click="register">
-          Register
-        </v-btn>
-      </v-form>
+        </v-menu> -->
+              <v-text-field
+                v-model="registerForm.password"
+                placeholder="Password"
+                :type="'password'"
+              />
+            </v-card-text>
 
-      <!-- Confirm Registration -->
-      <v-form v-else>
-        <v-text-field v-model="confirmForm.email" placeholder="Email" />
-        <v-text-field
-          v-model="confirmForm.code"
-          placeholder="Registration Code"
-        />
-        <v-btn class="success" @click="confirm">
-          Confirm
-        </v-btn>
-      </v-form>
-
-      <nuxt-link to="/login">
-        Have an account? Login
-      </nuxt-link>
+            <v-card-actions>
+              <v-btn class="success" block @click="register">
+                Register
+              </v-btn>
+            </v-card-actions>
+            <nuxt-link align="center" to="/login">
+              <span style="float: right"> Have an account? Login </span>
+            </nuxt-link>
+          </div>
+          <div v-else>
+            <v-card-text>
+              <v-card-sub-title>Enter the code in your email to validate your account</v-card-sub-title>
+              <v-text-field v-model="confirmForm.email" placeholder="Email" />
+              <v-text-field
+                v-model="confirmForm.code"
+                placeholder="Registration Code"
+              />
+            </v-card-text>
+            <v-card-actions>
+              <v-btn class="success" @click="confirm">
+                Confirm
+              </v-btn>
+            </v-card-actions>
+          </div>
+        </v-card>
+      </div>
     </v-col>
-    <v-col>
-      <!-- Logged in -->
-    </v-col>
+    <v-col />
   </v-row>
 </template>
 
@@ -80,8 +85,8 @@ export default {
     menu: false,
     registerForm: {
       email: '',
-      givenName: '',
-      birthDate: '',
+      // givenName: '',
+      // birthDate: '',
       password: ''
     },
     confirmForm: {
@@ -89,11 +94,11 @@ export default {
       code: ''
     }
   }),
-  watch: {
-    menu (val) {
-      val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
-    }
-  },
+  // watch: {
+  //   menu (val) {
+  //     val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
+  //   }
+  // },
 
   methods: {
     async register () {
@@ -117,11 +122,11 @@ export default {
       } catch (err) {
         console.log({ err })
       }
-    },
-
-    save (memberDateOfBirth) {
-      this.$refs.menu.save(memberDateOfBirth)
     }
+
+    // save (memberDateOfBirth) {
+    //   this.$refs.menu.save(memberDateOfBirth)
+    // }
   }
 }
 </script>
