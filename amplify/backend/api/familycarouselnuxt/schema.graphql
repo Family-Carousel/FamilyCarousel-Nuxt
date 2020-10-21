@@ -1,20 +1,25 @@
-type Blog @model {
+type Member @model {
+  id: ID!
+  firstName: String!
+  lastName: String
+  managedUser: Boolean!
+  DateOfBirth: String!
+  families: [FamilyMember] @connection(keyName: 'byMember', fields: ['id'])
+}
+
+type FamilyMember @models(queries: null)
+  @key(name: 'byFamily', fields: ['familyID', 'memberID'])
+  @key(name: 'byMember', fields: ['memberID', 'familyID']) {
+  id: ID!
+  familyID: ID!
+  memberID: ID!
+  family: Family! @connection(fields: ['familyId'])
+  member: Member! @connection(fields: ['memberId'])
+}
+
+type Family @model {
   id: ID!
   name: String!
-  posts: [Post] @connection(keyName: "byBlog", fields: ["id"])
-}
-
-type Post @model @key(name: "byBlog", fields: ["blogID"]) {
-  id: ID!
-  title: String!
-  blogID: ID!
-  blog: Blog @connection(fields: ["blogID"])
-  comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
-}
-
-type Comment @model @key(name: "byPost", fields: ["postID", "content"]) {
-  id: ID!
-  postID: ID!
-  post: Post @connection(fields: ["postID"])
-  content: String!
+  description: String
+  members: [FamilyMember] @connection(keyName: 'byFamily', fields: ['id'])
 }
