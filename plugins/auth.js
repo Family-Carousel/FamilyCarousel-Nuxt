@@ -1,30 +1,54 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 class AuthService {
-  constructor (store) {
-    this.$store = store
+  constructor(store) {
+    this.$store = store;
   }
 
-  get isAuthenticated () {
-    return this.$store.state.auth.isAuthenticated
+  get isAuthenticated() {
+    return this.$store.state.auth.isAuthenticated;
   }
 
-  get user () {
-    return this.$store.state.auth.user
+  get user() {
+    return this.$store.state.auth.user;
   }
 
-  get email () {
+  get email() {
     if (!this.user) {
-      return
+      return;
     }
 
-    return this.user.attributes.email
+    return this.user.attributes.email;
+  }
+
+  get id() {
+    if (!this.user) {
+      return;
+    }
+    return this.user.username;
+  }
+
+  get groups() {
+    if (!this.user) {
+      return;
+    }
+    return this.user.signInuserSession.accessToken.payload["cognito:groups"];
+  }
+
+  get isAdmin() {
+    if (!this.user) {
+      return;
+    }
+    const groups = this.user.signInuserSession.accessToken.payload[
+      "cognito:groups"
+    ];
+    return groups && groups.includes("admin");
   }
 }
 
 export default async ({ store }) => {
-  const authService = new AuthService(store)
-  Vue.prototype.$auth = authService
-  Vue.$auth = authService
-  await store.dispatch('auth/load')
-}
+  const authService = new AuthService(store);
+  Vue.prototype.$auth = authService;
+  Vue.$auth = authService;
+  await store.dispatch("auth/load");
+};

@@ -9,7 +9,7 @@ export const getMember = /* GraphQL */ `
       lastName
       biographgy
       managedUser
-      DateOfBirth
+      dateOfBirth
       families {
         items {
           id
@@ -38,7 +38,7 @@ export const listMembers = /* GraphQL */ `
         lastName
         biographgy
         managedUser
-        DateOfBirth
+        dateOfBirth
         families {
           nextToken
         }

@@ -12,7 +12,7 @@ type Member
   lastName: String
   biographgy: String
   managedUser: Boolean!
-  DateOfBirth: String!
+  dateOfBirth: String!
   families: [FamilyMember] @connection(keyName: "byMember", fields: ["id"])
   createdAt: String!
 }

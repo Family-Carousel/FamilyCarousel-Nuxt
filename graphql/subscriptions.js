@@ -9,7 +9,7 @@ export const onCreateMember = /* GraphQL */ `
       lastName
       biographgy
       managedUser
-      DateOfBirth
+      dateOfBirth
       families {
         items {
           id
@@ -33,7 +33,7 @@ export const onUpdateMember = /* GraphQL */ `
       lastName
       biographgy
       managedUser
-      DateOfBirth
+      dateOfBirth
       families {
         items {
           id
@@ -57,7 +57,7 @@ export const onDeleteMember = /* GraphQL */ `
       lastName
       biographgy
       managedUser
-      DateOfBirth
+      dateOfBirth
       families {
         items {
           id
@@ -95,7 +95,7 @@ export const onCreateFamilyMember = /* GraphQL */ `
         lastName
         biographgy
         managedUser
-        DateOfBirth
+        dateOfBirth
         families {
           nextToken
         }
@@ -129,7 +129,7 @@ export const onUpdateFamilyMember = /* GraphQL */ `
         lastName
         biographgy
         managedUser
-        DateOfBirth
+        dateOfBirth
         families {
           nextToken
         }
@@ -163,7 +163,7 @@ export const onDeleteFamilyMember = /* GraphQL */ `
         lastName
         biographgy
         managedUser
-        DateOfBirth
+        dateOfBirth
         families {
           nextToken
         }
