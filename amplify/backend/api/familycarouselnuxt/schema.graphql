@@ -1,25 +1,53 @@
-type Member @model {
+type Member
+  @model
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "id", operations: [create, update, delete] }
+      { allow: groups, groups: ["admin"], operations: [create, update, delete] }
+      { allow: private, operations: [read] }
+    ]
+  ) {
   id: ID!
   firstName: String!
   lastName: String
+  biographgy: String
   managedUser: Boolean!
   DateOfBirth: String!
-  families: [FamilyMember] @connection(keyName: 'byMember', fields: ['id'])
+  families: [FamilyMember] @connection(keyName: "byMember", fields: ["id"])
+  createdAt: String!
 }
 
-type FamilyMember @models(queries: null)
-  @key(name: 'byFamily', fields: ['familyID', 'memberID'])
-  @key(name: 'byMember', fields: ['memberID', 'familyID']) {
+type FamilyMember
+  @model(queries: null)
+  @key(name: "byFamily", fields: ["familyID", "memberID"])
+  @key(name: "byMember", fields: ["memberID", "familyID"])
+  @auth(
+    rules: [
+      {
+        allow: groups
+        groupsField: "familyID"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
   familyID: ID!
   memberID: ID!
-  family: Family! @connection(fields: ['familyId'])
-  member: Member! @connection(fields: ['memberId'])
+  family: Family! @connection(fields: ["familyID"])
+  member: Member! @connection(fields: ["memberID"])
 }
 
-type Family @model {
+type Family
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["admin"], operations: [create, update, delete] }
+      { allow: private, operations: [read, create, update, delete] }
+    ]
+  ) {
   id: ID!
   name: String!
   description: String
-  members: [FamilyMember] @connection(keyName: 'byFamily', fields: ['id'])
+  members: [FamilyMember] @connection(keyName: "byFamily", fields: ["id"])
+  createdAt: String!
 }
