@@ -14,8 +14,8 @@ export default {
   ** See https://nuxtjs.org/api/configuration-head
   */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s - ' + 'Family Carousel',
+    title: 'Family Carousel',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -35,7 +35,8 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    { src: '~/plugins/amplify.js', mode: 'client' }
+    { src: '~/plugins/amplify.js', mode: 'client' },
+    '~/plugins/auth.js'
   ],
   /*
   ** Auto import components
@@ -58,7 +59,11 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
-    '@nuxt/content'
+    '@nuxt/content',
+    ['nuxt-validate', {
+      lang: 'es'
+      // regular vee-validate options
+    }]
   ],
   /*
   ** Axios module configuration

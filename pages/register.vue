@@ -1,15 +1,13 @@
 <template>
-  <v-row>
-    <v-col />
-    <v-col>
-      <div v-if="step === steps.register">
-        <v-card class="mx-auto" max-width="600">
-          <v-img class="align-end" contain height="200" src="/logo2.png" />
-          <div v-if="step === 'REGISTER'">
-            <v-card-title>Create a account to get started</v-card-title>
-            <v-card-text>
-              <v-text-field v-model="registerForm.email" placeholder="Email" />
-              <!-- <v-text-field v-model="registerForm.givenName" placeholder="Name" />
+  <div>
+    <div v-if="!$auth.isAuthenticated">
+      <v-card class="mx-auto" max-width="600">
+        <v-img class="align-end" contain height="200" src="/logo2.png" />
+        <div v-if="step === steps.register">
+          <v-card-title>Create a account to get started</v-card-title>
+          <v-card-text>
+            <v-text-field v-model="registerForm.email" placeholder="Email" />
+            <!-- <v-text-field v-model="registerForm.givenName" placeholder="Name" />
         <v-menu
           ref="menu"
           v-model="menu"
@@ -34,42 +32,52 @@
             @change="save"
           />
         </v-menu> -->
-              <v-text-field
-                v-model="registerForm.password"
-                placeholder="Password"
-                :type="'password'"
-              />
-            </v-card-text>
+            <v-text-field
+              v-model="registerForm.password"
+              placeholder="Password"
+              :type="'password'"
+            />
+          </v-card-text>
 
-            <v-card-actions>
-              <v-btn class="success" block @click="register">
-                Register
-              </v-btn>
-            </v-card-actions>
-            <nuxt-link align="center" to="/login">
-              <span style="float: right"> Have an account? Login </span>
-            </nuxt-link>
-          </div>
-          <div v-else>
-            <v-card-text>
-              <v-card-sub-title>Enter the code in your email to validate your account</v-card-sub-title>
-              <v-text-field v-model="confirmForm.email" placeholder="Email" />
-              <v-text-field
-                v-model="confirmForm.code"
-                placeholder="Registration Code"
-              />
-            </v-card-text>
-            <v-card-actions>
-              <v-btn class="success" @click="confirm">
-                Confirm
-              </v-btn>
-            </v-card-actions>
-          </div>
-        </v-card>
-      </div>
-    </v-col>
-    <v-col />
-  </v-row>
+          <v-card-actions>
+            <v-btn class="success" block @click.prevent="register">
+              Register
+            </v-btn>
+          </v-card-actions>
+          <nuxt-link align="center" to="/login">
+            <span style="float: right"> Have an account? Login </span>
+          </nuxt-link>
+        </div>
+        <div v-if="step === steps.confirm">
+          <v-card-text>
+            <v-card-title>
+              Enter the code in your email to validate your account
+            </v-card-title>
+            <v-text-field v-model="confirmForm.email" placeholder="Email" />
+            <v-text-field
+              v-model="confirmForm.code"
+              placeholder="Registration Code"
+            />
+          </v-card-text>
+          <v-card-actions>
+            <v-btn class="success" @click.prevent="confirm">
+              Confirm
+            </v-btn>
+          </v-card-actions>
+        </div>
+      </v-card>
+    </div>
+    <div v-else>
+      <p>Your already logged in as {{ $auth.email }}</p>
+      <v-btn
+        class="hidden-sm-and-down"
+        text
+        @click="$store.dispatch('auth/logout')"
+      >
+        logout
+      </v-btn>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -106,6 +114,7 @@ export default {
         await this.$store.dispatch('auth/register', this.registerForm)
         this.confirmForm.email = this.registerForm.email
         this.step = this.steps.confirm
+        console.log('step: ', this.step)
       } catch (err) {
         console.log({ err })
       }
