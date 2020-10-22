@@ -99,53 +99,27 @@ export const actions = {
     }
   },
 
-  async login({ commit, dispatch }, { email, password }) {
+  async login({ commit, dispatch, $notifier }, { email, password }) {
     try {
       const user = await Auth.signIn(email, password);
       commit("set", user);
-  
-      await dispatch("user/findOrCreateUser", user, { root: true });
 
-      await dispatch(
-        "snackBar/addSnackBar",
-        {
-          text:
-            "Welcome to Family Carousel.",
-          timeout: 6000,
-          color: "success",
-        },
-        { root: true }
-      );
+      await dispatch("member/findOrCreateUser", user, { root: true });
+
+      $notifier.showMessage({ content: 'Welcome to Family Carousel!',  })
 
       return user;
     } catch (error) {
-      await dispatch(
-        "snackBar/addSnackBar",
-        {
-          text: error.message,
-          timeout: 6000,
-          color: "danger",
-        },
-        { root: true }
-      );
       return;
     }
   },
 
-  async logout({ commit }) {
+  async logout({ commit, $notifier }) {
     try {
       await Auth.signOut();
       commit("set", null);
     } catch (error) {
-      await dispatch(
-        "snackBar/addSnackBar",
-        {
-          text: error.message,
-          timeout: 6000,
-          color: "danger",
-        },
-        { root: true }
-      );
+      $notifier.showMessage({ content: error.message, color: "danger" });
       return;
     }
   },

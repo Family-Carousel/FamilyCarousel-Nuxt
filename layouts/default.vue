@@ -24,17 +24,6 @@
     <v-main>
       <v-container>
         <nuxt />
-        <v-snackbar
-          v-for="(snackBar, index) in snackBars.filter((s) => s.showing)"
-          :key="snackBar.text + Math.random()"
-          v-model="snackBar.showing"
-          :style="`bottom: ${index * 60 + 8}px`"
-          :timeout="snackBar.timeout"
-          :color="snackBar.color"
-        >
-          {{ snackBar.text }}
-          <v-btn text @click="snackBar.showing = false">Close</v-btn>
-        </v-snackbar>
       </v-container>
     </v-main>
     <v-footer class="pa-3" app absolute fixed>
@@ -44,19 +33,21 @@
         </v-col>
       </v-row>
     </v-footer>
+    <Snackbar></Snackbar>
   </v-app>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import Snackbar from "~/components/Snackbar";
+
 export default {
+  components: {
+    Snackbar,
+  },
   data() {
     return {
       title: "Family Carousel",
     };
-  },
-  computed: {
-    ...mapState("snackBar", ["snackBars"]),
   },
 };
 </script>

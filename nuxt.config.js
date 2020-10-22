@@ -3,7 +3,7 @@ export default {
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
    */
-  mode: "spa",
+  ssr: false,
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
@@ -38,12 +38,17 @@ export default {
   plugins: [
     { src: "~/plugins/amplify.js", mode: "client" },
     "~/plugins/auth.js",
+    "~/plugins/notifier.js",
   ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
    */
   components: true,
+  /*
+   ** Customize the progress-bar color
+   */
+  loading: { color: "#fff" },
   /*
    ** Nuxt.js dev-modules
    */
@@ -91,7 +96,11 @@ export default {
   },
   /*
    ** Build configuration
-   ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+    /*
+     ** You can extend webpack config here
+     */
+    extend() {},
+  },
 };

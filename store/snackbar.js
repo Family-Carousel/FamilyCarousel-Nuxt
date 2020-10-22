@@ -1,18 +1,11 @@
 export const state = () => ({
-  snackBars: [],
+  content: "",
+  color: "",
 });
 
 export const mutations = {
-  set(state, snackBar) {
-    state.snackBars.push(snackBar);
-  },
-};
-
-export const actions = {
-  async addSnackBar({ commit }, snackBar) {
-    snackBar.showing = true;
-    snackBar.color = snackBar.color || "success";
-    commit("set", snackBar);
-    return snackBar;
+  showMessage(state, payload) {
+    state.content = payload.content;
+    state.color = payload.color;
   },
 };
