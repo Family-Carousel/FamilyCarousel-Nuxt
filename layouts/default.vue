@@ -7,16 +7,16 @@
       <v-toolbar-title>Family Carousel</v-toolbar-title>
       <v-spacer />
       <div v-if="!$auth.isAuthenticated">
-        <v-btn class="hidden-sm-and-down" text to="/register">
-          Sign Up
-        </v-btn>
-        <v-btn class="hidden-sm-and-down" text to="/login">
-          Login
-        </v-btn>
+        <v-btn class="hidden-sm-and-down" text to="/register"> Sign Up </v-btn>
+        <v-btn class="hidden-sm-and-down" text to="/login"> Login </v-btn>
       </div>
       <div v-else>
         <span> Welcome {{ $auth.email }} </span>
-        <v-btn class="hidden-sm-and-down" text @click="$store.dispatch('auth/logout')">
+        <v-btn
+          class="hidden-sm-and-down"
+          text
+          @click="$store.dispatch('auth/logout')"
+        >
           logout
         </v-btn>
       </div>
@@ -24,6 +24,17 @@
     <v-main>
       <v-container>
         <nuxt />
+        <v-snackbar
+          v-for="(snackBar, index) in snackBars.filter((s) => s.showing)"
+          :key="snackBar.text + Math.random()"
+          v-model="snackBar.showing"
+          :style="`bottom: ${index * 60 + 8}px`"
+          :timeout="snackBar.timeout"
+          :color="snackBar.color"
+        >
+          {{ snackBar.text }}
+          <v-btn text @click="snackBar.showing = false">Close</v-btn>
+        </v-snackbar>
       </v-container>
     </v-main>
     <v-footer class="pa-3" app absolute fixed>
@@ -37,11 +48,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  data () {
+  data() {
     return {
-      title: 'Family Carousel'
-    }
-  }
-}
+      title: "Family Carousel",
+    };
+  },
+  computed: {
+    ...mapState("snackBar", ["snackBars"]),
+  },
+};
 </script>

@@ -1,11 +1,11 @@
 export const state = () => ({
-  snackBars: []
+  snackBars: [],
 });
 
 export const mutations = {
   set(state, snackBar) {
     state.snackBars.push(snackBar);
-  }
+  },
 };
 
 export const actions = {
@@ -14,5 +14,5 @@ export const actions = {
     snackBar.color = snackBar.color || "success";
     commit("set", snackBar);
     return snackBar;
-  }
+  },
 };

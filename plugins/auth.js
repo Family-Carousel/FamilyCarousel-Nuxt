@@ -15,7 +15,7 @@ class AuthService {
 
   get email() {
     if (!this.user) {
-      return;
+      return null;
     }
 
     return this.user.attributes.email;
@@ -23,21 +23,21 @@ class AuthService {
 
   get id() {
     if (!this.user) {
-      return;
+      return null;
     }
     return this.user.username;
   }
 
   get groups() {
     if (!this.user) {
-      return;
+      return null;
     }
     return this.user.signInuserSession.accessToken.payload["cognito:groups"];
   }
 
   get isAdmin() {
     if (!this.user) {
-      return;
+      return null;
     }
     const groups = this.user.signInuserSession.accessToken.payload[
       "cognito:groups"

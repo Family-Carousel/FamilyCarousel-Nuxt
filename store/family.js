@@ -1,17 +1,21 @@
 export const state = () => ({
   families: [],
-  family: null
+  family: null,
 });
 
 export const mutations = {
   set(state, { key, value }) {
     state[key] = value;
-  }
+  },
 };
 
 export const actions = {
   async listFamilies({ commit, dispatch }) {
-    const families = await dispatch("api/query", { query: "listFamilies" }, { root: true });
+    const families = await dispatch(
+      "api/query",
+      { query: "listFamilies" },
+      { root: true }
+    );
 
     commit("set", { key: "families", value: families });
 
@@ -19,7 +23,11 @@ export const actions = {
   },
 
   async getFamily({ commit, dispatch }, id) {
-    const family = await dispatch("api/get", { query: "getFamily", id }, { root: true });
+    const family = await dispatch(
+      "api/get",
+      { query: "getFamily", id },
+      { root: true }
+    );
 
     commit("set", { key: "family", value: family });
 
@@ -27,7 +35,11 @@ export const actions = {
   },
 
   async createFamily({ commit, dispatch }, input) {
-    const families = await dispatch("api/mutate", { mutation: "createFamily", input }, { root: true });
+    const family = await dispatch(
+      "api/mutate",
+      { mutation: "createFamily", input },
+      { root: true }
+    );
 
     commit("set", { key: "family", value: family });
 
@@ -35,7 +47,11 @@ export const actions = {
   },
 
   async updateFamily({ commit, dispatch }, input) {
-    const family = await dispatch("api/mutate", { mutation: "listFamilies", input }, { root: true });
+    const family = await dispatch(
+      "api/mutate",
+      { mutation: "listFamilies", input },
+      { root: true }
+    );
 
     commit("set", { key: "family", value: family });
 
@@ -43,10 +59,14 @@ export const actions = {
   },
 
   async deleteFamily({ commit, dispatch }, id) {
-    const family = await dispatch("api/mutate", { mutation: "listFamilies", id }, { root: true });
+    const family = await dispatch(
+      "api/mutate",
+      { mutation: "listFamilies", id },
+      { root: true }
+    );
 
     commit("set", { key: "family", value: null });
 
     return family;
-  }
+  },
 };

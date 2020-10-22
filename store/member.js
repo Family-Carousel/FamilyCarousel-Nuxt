@@ -1,11 +1,11 @@
 export const state = () => ({
-  user: null
+  user: null,
 });
 
 export const mutations = {
   setUser(state, user) {
     state.user = user;
-  }
+  },
 };
 
 export const actions = {
@@ -29,7 +29,7 @@ export const actions = {
     return user;
   },
 
-  async findOrCreateUser({ dispatch }, { attributes, email }) {
+  async findOrCreateUser({ dispatch }, { email }) {
     const user = await dispatch("getUser", email);
     if (user) {
       return user;
@@ -37,7 +37,7 @@ export const actions = {
 
     return dispatch("createUser", {
       id: email,
-      createdAt: new Date(Date.now()).toISOString()
+      createdAt: new Date(Date.now()).toISOString(),
     });
-  }
+  },
 };

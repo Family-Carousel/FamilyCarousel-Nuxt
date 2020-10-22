@@ -60,9 +60,7 @@
             />
           </v-card-text>
           <v-card-actions>
-            <v-btn class="success" @click.prevent="confirm">
-              Confirm
-            </v-btn>
+            <v-btn class="success" @click.prevent="confirm"> Confirm </v-btn>
           </v-card-actions>
         </div>
       </v-card>
@@ -82,9 +80,9 @@
 
 <script>
 const steps = {
-  register: 'REGISTER',
-  confirm: 'CONFIRM'
-}
+  register: "REGISTER",
+  confirm: "CONFIRM",
+};
 
 export default {
   data: () => ({
@@ -92,15 +90,15 @@ export default {
     step: steps.register,
     menu: false,
     registerForm: {
-      email: '',
+      email: "",
       // givenName: '',
       // birthDate: '',
-      password: ''
+      password: "",
     },
     confirmForm: {
-      email: '',
-      code: ''
-    }
+      email: "",
+      code: "",
+    },
   }),
   // watch: {
   //   menu (val) {
@@ -109,33 +107,33 @@ export default {
   // },
 
   methods: {
-    async register () {
+    async register() {
       try {
-        await this.$store.dispatch('auth/register', this.registerForm)
-        this.confirmForm.email = this.registerForm.email
-        this.step = this.steps.confirm
-        console.log('step: ', this.step)
+        await this.$store.dispatch("auth/register", this.registerForm);
+        this.confirmForm.email = this.registerForm.email;
+        this.step = this.steps.confirm;
+        console.log("step: ", this.step);
       } catch (err) {
-        console.log({ err })
+        console.log({ err });
       }
     },
 
-    async confirm () {
+    async confirm() {
       try {
         await this.$store.dispatch(
-          'auth/confirmRegistration',
+          "auth/confirmRegistration",
           this.confirmForm
-        )
-        await this.$store.dispatch('auth/login', this.registerForm)
-        this.$router.push('/')
+        );
+        await this.$store.dispatch("auth/login", this.registerForm);
+        this.$router.push("/");
       } catch (err) {
-        console.log({ err })
+        console.log({ err });
       }
-    }
+    },
 
     // save (memberDateOfBirth) {
     //   this.$refs.menu.save(memberDateOfBirth)
     // }
-  }
-}
+  },
+};
 </script>

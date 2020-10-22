@@ -14,9 +14,7 @@
             />
           </v-card-text>
           <v-card-actions>
-            <v-btn class="success" block @click.prevent="login">
-              Login
-            </v-btn>
+            <v-btn class="success" block @click.prevent="login"> Login </v-btn>
           </v-card-actions>
           <nuxt-link align="center" to="/register">
             <span style="float: right"> Don't have an account? Register </span>
@@ -41,19 +39,19 @@
 export default {
   data: () => ({
     form: {
-      email: '',
-      password: ''
-    }
+      email: "",
+      password: "",
+    },
   }),
   methods: {
-    async login () {
+    async login() {
       try {
-        await this.$store.dispatch('auth/login', this.form)
-        this.$router.push('/')
+        await this.$store.dispatch("auth/login", this.form);
+        this.$router.push("/");
       } catch (error) {
-        console.log({ error })
+        console.log({ error });
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
