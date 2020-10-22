@@ -21,34 +21,132 @@ export const actions = {
       if (user) {
         await dispatch("user/getUser", user.username, { root: true });
       }
-    } catch (err) {
+    } catch (error) {
       commit("set", null);
+      await dispatch(
+        "snackBar/addSnackBar",
+        {
+          text: error.message,
+          timeout: 6000,
+          color: "danger",
+        },
+        { root: true }
+      );
+      return;
     }
   },
 
-  async register(_, { email, password }) {
-    const user = await Auth.signUp({
-      username: email,
-      password,
-    });
+  async register({ dispatch }, { email, password }) {
+    try {
+      const user = await Auth.signUp({
+        username: email,
+        password,
+      });
 
-    return user;
+      await dispatch(
+        "snackBar/addSnackBar",
+        {
+          text:
+            "Thanks for registering an account! Stick around to confirm before you can log in.",
+          timeout: 6000,
+          color: "success",
+        },
+        { root: true }
+      );
+
+      return user;
+    } catch (error) {
+      await dispatch(
+        "snackBar/addSnackBar",
+        {
+          text: error.message,
+          timeout: 6000,
+          color: "danger",
+        },
+        { root: true }
+      );
+      return;
+    }
   },
 
-  async confirmRegistration(_, { email, code }) {
-    return await Auth.confirmSignUp(email, code);
+  async confirmRegistration({ dispatch }, { email, code }) {
+    try {
+      const confirmed = await Auth.confirmSignUp(email, code);
+
+      await dispatch(
+        "snackBar/addSnackBar",
+        {
+          text:
+            "You've successfully confirmed your account! Welcome to Family Carousel.",
+          timeout: 6000,
+          color: "success",
+        },
+        { root: true }
+      );
+
+      return confirmed;
+    } catch (error) {
+      await dispatch(
+        "snackBar/addSnackBar",
+        {
+          text: error.message,
+          timeout: 6000,
+          color: "danger",
+        },
+        { root: true }
+      );
+      return;
+    }
   },
 
   async login({ commit, dispatch }, { email, password }) {
-    const user = await Auth.signIn(email, password);
-    commit("set", user);
+    try {
+      const user = await Auth.signIn(email, password);
+      commit("set", user);
+  
+      await dispatch("user/findOrCreateUser", user, { root: true });
 
-    await dispatch("user/findOrCreateUser", user, { root: true });
-    return user;
+      await dispatch(
+        "snackBar/addSnackBar",
+        {
+          text:
+            "Welcome to Family Carousel.",
+          timeout: 6000,
+          color: "success",
+        },
+        { root: true }
+      );
+
+      return user;
+    } catch (error) {
+      await dispatch(
+        "snackBar/addSnackBar",
+        {
+          text: error.message,
+          timeout: 6000,
+          color: "danger",
+        },
+        { root: true }
+      );
+      return;
+    }
   },
 
   async logout({ commit }) {
-    await Auth.signOut();
-    commit("set", null);
+    try {
+      await Auth.signOut();
+      commit("set", null);
+    } catch (error) {
+      await dispatch(
+        "snackBar/addSnackBar",
+        {
+          text: error.message,
+          timeout: 6000,
+          color: "danger",
+        },
+        { root: true }
+      );
+      return;
+    }
   },
 };
