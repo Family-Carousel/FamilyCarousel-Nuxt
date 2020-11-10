@@ -32,14 +32,14 @@ class AuthService {
     if (!this.user) {
       return null;
     }
-    return this.user.signInuserSession.accessToken.payload["cognito:groups"];
+    return this.user.signInUserSession.accessToken.payload["cognito:groups"];
   }
 
   get isAdmin() {
     if (!this.user) {
       return null;
     }
-    const groups = this.user.signInuserSession.accessToken.payload[
+    const groups = this.user.signInUserSession.accessToken.payload[
       "cognito:groups"
     ];
     return groups && groups.includes("admin");

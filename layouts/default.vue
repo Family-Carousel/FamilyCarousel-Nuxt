@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import Snackbar from "~/components/Snackbar";
+import Snackbar from "~/components/snackbarComponent";
 
 export default {
   components: {

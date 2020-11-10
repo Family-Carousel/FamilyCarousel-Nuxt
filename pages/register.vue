@@ -163,10 +163,6 @@ export default {
         console.log({ err });
       }
     },
-
-    // save (memberDateOfBirth) {
-    //   this.$refs.menu.save(memberDateOfBirth)
-    // }
   },
 };
 </script>

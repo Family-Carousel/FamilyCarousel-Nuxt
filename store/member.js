@@ -56,7 +56,7 @@ export const actions = {
   async deleteUser({ commit, dispatch }, email) {
     const user = await dispatch(
       "api/mutate",
-      { mutation: "deleteMember", id },
+      { mutation: "deleteMember", email },
       { root: true }
     );
 

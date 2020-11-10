@@ -14,11 +14,15 @@ export const mutations = {
 
 export const actions = {
   async load({ commit, dispatch }) {
-    const user = await Auth.currentAuthenticatedUser();
-    commit("set", user);
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      commit("set", user);
 
-    if (user) {
-      await dispatch("user/getUser", user.username, { root: true });
+      if (user) {
+        await dispatch("user/getUser", user.username, { root: true });
+      }
+    } catch (error) {
+      commit("set", null);
     }
   },
 
