@@ -4,10 +4,20 @@
       <v-card class="mx-auto" max-width="600">
         <v-img class="align-end" contain height="200" src="/logo2.png" />
         <div v-if="step === steps.register">
-          <v-card-title>Create a account to get started</v-card-title>
-          <v-card-text>
-            <v-text-field v-model="registerForm.email" placeholder="Email" />
-            <!-- <v-text-field v-model="registerForm.givenName" placeholder="Name" />
+          <ValidationObserver ref="reg" slot-scope="{ invalid, validated }">
+            <v-card-title>Create a account to get started</v-card-title>
+            <v-card-text>
+              <ValidationProvider name="Email" rules="required|email">
+                <v-text-field
+                  v-model="registerForm.email"
+                  slot-scope="{ errors, valid }"
+                  label="Email"
+                  :error-messages="errors"
+                  :success="valid"
+                  placeholder="Email"
+                />
+              </ValidationProvider>
+              <!-- <v-text-field v-model="registerForm.givenName" placeholder="Name" />
         <v-menu
           ref="menu"
           v-model="menu"
@@ -32,21 +42,33 @@
             @change="save"
           />
         </v-menu> -->
-            <v-text-field
-              v-model="registerForm.password"
-              placeholder="Password"
-              :type="'password'"
-            />
-          </v-card-text>
+              <ValidationProvider name="Password" rules="required|min:8">
+                <v-text-field
+                  v-model="registerForm.password"
+                  slot-scope="{ errors, valid }"
+                  :error-messages="errors"
+                  :success="valid"
+                  placeholder="Password"
+                  label="Password"
+                  :type="'password'"
+                />
+              </ValidationProvider>
+            </v-card-text>
 
-          <v-card-actions>
-            <v-btn class="success" block @click.prevent="register">
-              Register
-            </v-btn>
-          </v-card-actions>
-          <nuxt-link align="center" to="/login">
-            <span style="float: right"> Have an account? Login </span>
-          </nuxt-link>
+            <v-card-actions>
+              <v-btn
+                class="success"
+                :disabled="invalid || !validated"
+                block
+                @click.prevent="register"
+              >
+                Register
+              </v-btn>
+            </v-card-actions>
+            <nuxt-link align="center" to="/login">
+              <span style="float: right"> Have an account? Login </span>
+            </nuxt-link>
+          </ValidationObserver>
         </div>
         <div v-if="step === steps.confirm">
           <v-card-text>
@@ -79,12 +101,18 @@
 </template>
 
 <script>
+import { ValidationObserver, ValidationProvider } from "vee-validate";
+
 const steps = {
   register: "REGISTER",
   confirm: "CONFIRM",
 };
 
 export default {
+  components: {
+    ValidationProvider,
+    ValidationObserver,
+  },
   data: () => ({
     steps: { ...steps },
     step: steps.register,
@@ -109,6 +137,11 @@ export default {
   methods: {
     async register() {
       try {
+        const result = await this.$refs.obs.validate();
+        if (!result) {
+          return;
+        }
+
         await this.$store.dispatch("auth/register", this.registerForm);
         this.confirmForm.email = this.registerForm.email;
         this.step = this.steps.confirm;

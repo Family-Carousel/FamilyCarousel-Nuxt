@@ -49,7 +49,7 @@ export const actions = {
   async updateFamily({ commit, dispatch }, input) {
     const family = await dispatch(
       "api/mutate",
-      { mutation: "listFamilies", input },
+      { mutation: "updateFamily", input },
       { root: true }
     );
 
@@ -61,7 +61,7 @@ export const actions = {
   async deleteFamily({ commit, dispatch }, id) {
     const family = await dispatch(
       "api/mutate",
-      { mutation: "listFamilies", id },
+      { mutation: "deleteFamily", id },
       { root: true }
     );
 

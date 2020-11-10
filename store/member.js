@@ -3,7 +3,7 @@ export const state = () => ({
 });
 
 export const mutations = {
-  setUser(state, user) {
+  set(state, user) {
     state.user = user;
   },
 };
@@ -15,7 +15,7 @@ export const actions = {
       { query: "getUser", id },
       { root: true }
     );
-    commit("setUser", user);
+    commit("set", user);
     return user;
   },
 
@@ -25,7 +25,7 @@ export const actions = {
       { mutation: "createuser", input },
       { root: true }
     );
-    commit("setUser", user);
+    commit("set", user);
     return user;
   },
 
@@ -39,5 +39,29 @@ export const actions = {
       id: email,
       createdAt: new Date(Date.now()).toISOString(),
     });
+  },
+
+  async updateUser({ commit, dispatch }, input) {
+    const user = await dispatch(
+      "api/mutate",
+      { mutation: "updateMember", input },
+      { root: true }
+    );
+
+    commit("set", { key: "user", value: user });
+
+    return user;
+  },
+
+  async deleteUser({ commit, dispatch }, email) {
+    const user = await dispatch(
+      "api/mutate",
+      { mutation: "deleteMember", id },
+      { root: true }
+    );
+
+    commit("set", { key: "user", value: null });
+
+    return user;
   },
 };
