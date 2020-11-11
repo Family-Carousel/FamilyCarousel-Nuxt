@@ -74,8 +74,15 @@ export default {
       try {
         await this.$store.dispatch("auth/login", this.form);
         this.$router.push("/");
-      } catch (error) {
-        console.log({ error });
+        this.$notifier.showMessage({
+          content: "Welcome to Family Carousel!",
+          color: "success",
+        });
+      } catch (err) {
+        this.$notifier.showMessage({
+          content: err.message,
+          color: "danger",
+        });
       }
     },
   },

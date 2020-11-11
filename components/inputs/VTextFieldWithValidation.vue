@@ -1,7 +1,7 @@
 <template>
   <ValidationProvider
     v-slot="{ errors, valid }"
-    immediate
+    :immediate="immediate"
     :name="$attrs.label"
     :rules="rules"
   >
@@ -31,6 +31,11 @@ export default {
     value: {
       type: null,
       default: null,
+    },
+    immediate: {
+      type: Boolean,
+      default: false,
+      required: false,
     },
   },
   data: () => ({

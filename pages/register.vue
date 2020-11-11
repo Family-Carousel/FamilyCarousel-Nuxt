@@ -88,8 +88,6 @@ export default {
     menu: false,
     registerForm: {
       email: "",
-      // givenName: '',
-      // birthDate: '',
       password: "",
     },
     confirmForm: {
@@ -97,12 +95,6 @@ export default {
       code: "",
     },
   }),
-  // watch: {
-  //   menu (val) {
-  //     val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
-  //   }
-  // },
-
   methods: {
     async register() {
       try {
@@ -111,6 +103,7 @@ export default {
           this.$notifier.showMessage({
             content:
               "Registration form is not valid. Please correct errors shown in red.",
+            color: "success",
           });
           return;
         }
@@ -121,6 +114,7 @@ export default {
         this.$notifier.showMessage({
           content:
             "Account registration successful! Check your email for a confirmation code to finish.",
+          color: "success",
         });
       } catch (err) {
         this.$notifier.showMessage({
@@ -137,9 +131,16 @@ export default {
           this.confirmForm
         );
         await this.$store.dispatch("auth/login", this.registerForm);
+        this.$notifier.showMessage({
+          content: "Welcome to Family Carousel!",
+          color: "success",
+        });
         this.$router.push("/");
       } catch (err) {
-        console.log({ err });
+        this.$notifier.showMessage({
+          content: err.message,
+          color: "danger",
+        });
       }
     },
   },
