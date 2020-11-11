@@ -4,10 +4,7 @@
       <v-card class="mx-auto" max-width="600">
         <v-img class="align-end" contain height="200" src="/logo2.png" />
         <div v-if="step === steps.register">
-          <ValidationObserver
-            ref="obs"
-            v-slot="{ invalid, validated, handleSubmit }"
-          >
+          <ValidationObserver ref="obs" v-slot="{ invalid, validated }">
             <v-card-title>Create a account to get started</v-card-title>
             <v-card-text>
               <v-form>
@@ -29,7 +26,7 @@
                 class="success"
                 :disabled="invalid || !validated"
                 block
-                @click="handleSubmit(register)"
+                @click.prevent="register()"
               >
                 Register
               </v-btn>
@@ -111,15 +108,25 @@ export default {
       try {
         const result = await this.$refs.obs.validate();
         if (!result) {
+          this.$notifier.showMessage({
+            content:
+              "Registration form is not valid. Please correct errors shown in red.",
+          });
           return;
         }
 
         await this.$store.dispatch("auth/register", this.registerForm);
         this.confirmForm.email = this.registerForm.email;
         this.step = this.steps.confirm;
-        console.log("step: ", this.step);
+        this.$notifier.showMessage({
+          content:
+            "Account registration successful! Check your email for a confirmation code to finish.",
+        });
       } catch (err) {
-        console.log({ err });
+        this.$notifier.showMessage({
+          content: err.message,
+          color: "danger",
+        });
       }
     },
 

@@ -45,8 +45,6 @@ export const actions = {
 
     await dispatch("member/findOrCreateUser", user, { root: true });
 
-    // $notifier.showMessage({ content: 'Welcome to Family Carousel!',  })
-
     return user;
   },
 

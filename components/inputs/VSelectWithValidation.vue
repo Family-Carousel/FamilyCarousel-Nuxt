@@ -1,8 +1,14 @@
 <template>
-  <ValidationProvider v-slot="{ errors }" :name="$attrs.label" :rules="rules">
+  <ValidationProvider
+    v-slot="{ errors, valid }"
+    immediate
+    :name="$attrs.label"
+    :rules="rules"
+  >
     <v-select
       v-model="innerValue"
       :error-messages="errors"
+      :success="valid"
       v-bind="$attrs"
       v-on="$listeners"
     ></v-select>

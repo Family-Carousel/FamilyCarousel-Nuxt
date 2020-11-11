@@ -4,21 +4,38 @@
       <v-card class="mx-auto" max-width="600">
         <v-img class="align-end" contain height="200" src="/logo2.png" />
         <div>
-          <v-card-title>Login To Get Started</v-card-title>
-          <v-card-text>
-            <v-text-field v-model="form.email" placeholder="Email" />
-            <v-text-field
-              v-model="form.password"
-              placeholder="Password"
-              :type="'password'"
-            />
-          </v-card-text>
-          <v-card-actions>
-            <v-btn class="success" block @click.prevent="login"> Login </v-btn>
-          </v-card-actions>
-          <nuxt-link align="center" to="/register">
-            <span style="float: right"> Don't have an account? Register </span>
-          </nuxt-link>
+          <ValidationObserver ref="obs" v-slot="{ invalid, validated }">
+            <v-card-title>Login To Get Started</v-card-title>
+            <v-card-text>
+              <v-form>
+                <VTextFieldWithValidation
+                  v-model="form.email"
+                  rules="required|email"
+                  label="Email"
+                />
+                <VPassowrdFieldWithValidation
+                  v-model="form.password"
+                  rules="required|min:8"
+                  label="Password"
+                />
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                class="success"
+                :disabled="invalid || !validated"
+                block
+                @click.prevent="login()"
+              >
+                Login
+              </v-btn>
+            </v-card-actions>
+            <nuxt-link align="center" to="/register">
+              <span style="float: right">
+                Don't have an account? Register
+              </span>
+            </nuxt-link>
+          </ValidationObserver>
         </div>
       </v-card>
     </div>
@@ -36,7 +53,16 @@
 </template>
 
 <script>
+import { ValidationObserver } from "vee-validate";
+import VTextFieldWithValidation from "../components/inputs/VTextFieldWithValidation";
+import VPassowrdFieldWithValidation from "../components/inputs/VPasswordFieldWithValidation";
+
 export default {
+  components: {
+    ValidationObserver,
+    VTextFieldWithValidation,
+    VPassowrdFieldWithValidation,
+  },
   data: () => ({
     form: {
       email: "",
