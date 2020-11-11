@@ -4,55 +4,24 @@
       <v-card class="mx-auto" max-width="600">
         <v-img class="align-end" contain height="200" src="/logo2.png" />
         <div v-if="step === steps.register">
-          <ValidationObserver ref="reg" slot-scope="{ invalid, validated }">
+          <ValidationObserver
+            ref="obs"
+            v-slot="{ invalid, validated, handleSubmit }"
+          >
             <v-card-title>Create a account to get started</v-card-title>
             <v-card-text>
-              <ValidationProvider name="Email" rules="required|email">
-                <v-text-field
+              <v-form>
+                <VTextFieldWithValidation
                   v-model="registerForm.email"
-                  slot-scope="{ errors, valid }"
+                  rules="required|email"
                   label="Email"
-                  :error-messages="errors"
-                  :success="valid"
-                  placeholder="Email"
                 />
-              </ValidationProvider>
-              <!-- <v-text-field v-model="registerForm.givenName" placeholder="Name" />
-        <v-menu
-          ref="menu"
-          v-model="menu"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-          min-width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="registerForm.birthDate"
-              label="Birthday date"
-              readonly
-              v-on="on"
-            />
-          </template>
-          <v-date-picker
-            ref="picker"
-            v-model="registerForm.birthDate"
-            :max="new Date().toISOString().substr(0, 10)"
-            min="1950-01-01"
-            @change="save"
-          />
-        </v-menu> -->
-              <ValidationProvider name="Password" rules="required|min:8">
-                <v-text-field
+                <VPassowrdFieldWithValidation
                   v-model="registerForm.password"
-                  slot-scope="{ errors, valid }"
-                  :error-messages="errors"
-                  :success="valid"
-                  placeholder="Password"
+                  rules="required|min:8"
                   label="Password"
-                  :type="'password'"
                 />
-              </ValidationProvider>
+              </v-form>
             </v-card-text>
 
             <v-card-actions>
@@ -60,7 +29,7 @@
                 class="success"
                 :disabled="invalid || !validated"
                 block
-                @click.prevent="register"
+                @click="handleSubmit(register)"
               >
                 Register
               </v-btn>
@@ -101,7 +70,9 @@
 </template>
 
 <script>
-import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { ValidationObserver } from "vee-validate";
+import VTextFieldWithValidation from "../components/inputs/VTextFieldWithValidation";
+import VPassowrdFieldWithValidation from "../components/inputs/VPasswordFieldWithValidation";
 
 const steps = {
   register: "REGISTER",
@@ -110,8 +81,9 @@ const steps = {
 
 export default {
   components: {
-    ValidationProvider,
     ValidationObserver,
+    VTextFieldWithValidation,
+    VPassowrdFieldWithValidation,
   },
   data: () => ({
     steps: { ...steps },

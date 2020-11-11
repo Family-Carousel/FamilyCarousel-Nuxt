@@ -68,7 +68,7 @@ export default {
     [
       "nuxt-validate",
       {
-        lang: "es",
+        lang: "en",
         // regular vee-validate options
       },
     ],
