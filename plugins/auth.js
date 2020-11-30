@@ -46,9 +46,10 @@ class AuthService {
   }
 }
 
-export default async ({ store }) => {
+export default async ({ store }, inject) => {
   const authService = new AuthService(store);
   Vue.prototype.$auth = authService;
   Vue.$auth = authService;
   await store.dispatch("auth/load");
+  inject("authService", authService);
 };

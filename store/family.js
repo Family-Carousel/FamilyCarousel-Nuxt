@@ -10,7 +10,7 @@ export const mutations = {
 };
 
 export const actions = {
-  async listFamilies({ commit, dispatch }) {
+  async listAllFamilies({ commit, dispatch }) {
     const families = await dispatch(
       "api/query",
       { query: "listFamilies" },

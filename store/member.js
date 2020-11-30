@@ -12,7 +12,7 @@ export const actions = {
   async getUser({ commit, dispatch }, id) {
     const user = await dispatch(
       "api/get",
-      { query: "getUser", id },
+      { query: "getMember", id },
       { root: true }
     );
     commit("set", user);
@@ -22,7 +22,7 @@ export const actions = {
   async createUser({ commit, dispatch }, input) {
     const user = await dispatch(
       "api/mutate",
-      { mutation: "createuser", input },
+      { mutation: "createMember", input },
       { root: true }
     );
     commit("set", user);

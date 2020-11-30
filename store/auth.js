@@ -19,7 +19,7 @@ export const actions = {
       commit("set", user);
 
       if (user) {
-        await dispatch("user/getUser", user.username, { root: true });
+        await dispatch("member/getUser", user.username, { root: true });
       }
     } catch (error) {
       commit("set", null);

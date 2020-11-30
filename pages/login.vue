@@ -73,11 +73,11 @@ export default {
     async login() {
       try {
         await this.$store.dispatch("auth/login", this.form);
-        this.$router.push("/");
         this.$notifier.showMessage({
           content: "Welcome to Family Carousel!",
           color: "success",
         });
+        this.$router.push("/family/organizer");
       } catch (err) {
         this.$notifier.showMessage({
           content: err.message,
