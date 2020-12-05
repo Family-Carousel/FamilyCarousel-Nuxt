@@ -50,10 +50,11 @@
 <script>
 export default {
   async asyncData({ store }) {
-    const memberEmail = store.$authService.email;
-    console.log({ memberEmail });
+    const memberEmail = store.$authService.id;
     const member = await store.dispatch("member/getUser", memberEmail);
-    return { member };
+    console.log(`Member received from API: ${JSON.stringify(member, null, 2)}`);
+    const families = member.families.items;
+    return { families };
   },
   data: () => ({}),
 };

@@ -5,6 +5,7 @@ export const getMember = /* GraphQL */ `
   query GetMember($id: ID!) {
     getMember(id: $id) {
       id
+      email
       firstName
       lastName
       biographgy
@@ -34,6 +35,7 @@ export const listMembers = /* GraphQL */ `
     listMembers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        email
         firstName
         lastName
         biographgy

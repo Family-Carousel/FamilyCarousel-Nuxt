@@ -118,7 +118,7 @@ export default {
         });
       } catch (err) {
         this.$notifier.showMessage({
-          content: err.message,
+          content: err.message || err,
           color: "danger",
         });
       }
@@ -138,7 +138,7 @@ export default {
         this.$router.push("/");
       } catch (err) {
         this.$notifier.showMessage({
-          content: err.message,
+          content: err.message || err,
           color: "danger",
         });
       }

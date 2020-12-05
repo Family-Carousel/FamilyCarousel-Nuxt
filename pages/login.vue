@@ -71,16 +71,26 @@ export default {
   }),
   methods: {
     async login() {
+      console.log(`Login page login function called`);
       try {
         await this.$store.dispatch("auth/login", this.form);
+        console.log(`Login page login function called store`);
         this.$notifier.showMessage({
           content: "Welcome to Family Carousel!",
           color: "success",
         });
-        this.$router.push("/family/organizer");
+        this.$router.push("/family/carousel");
+        console.log(`Login page login function called log is after push`);
       } catch (err) {
+        console.log(
+          `Login page login function called hit catch, display error: ${JSON.stringify(
+            err,
+            null,
+            2
+          )}`
+        );
         this.$notifier.showMessage({
-          content: err.message,
+          content: err.message || err,
           color: "danger",
         });
       }

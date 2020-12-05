@@ -12,6 +12,9 @@
       </div>
       <div v-else>
         <span> Welcome {{ $auth.email }} </span>
+        <v-btn class="hidden-sm-and-down" text to="/family/organizer">
+          Carousel
+        </v-btn>
         <v-btn
           class="hidden-sm-and-down"
           text
@@ -39,15 +42,10 @@
 
 <script>
 import Snackbar from "~/components/snackbarComponent";
-
 export default {
-  components: {
-    Snackbar,
-  },
+  components: { Snackbar },
   data() {
-    return {
-      title: "Family Carousel",
-    };
+    return { title: "Family Carousel" };
   },
 };
 </script>

@@ -4,6 +4,8 @@ import { AmplifyPlugin } from "aws-amplify-vue";
 
 import awsconfig from "~/aws-exports";
 
-Amplify.configure(awsconfig);
+Amplify.Logger.LOG_LEVEL = "DEBUG";
+Amplify.configure({ ...awsconfig, ssr: true });
+AmplifyModules.Auth.configure({ ...awsconfig, ssr: true });
 
 Vue.use(AmplifyPlugin, AmplifyModules);

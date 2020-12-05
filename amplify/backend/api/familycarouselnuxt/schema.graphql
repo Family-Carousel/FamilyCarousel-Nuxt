@@ -1,18 +1,12 @@
 type Member
-  @model
-  @auth(
-    rules: [
-      { allow: owner, ownerField: "id", operations: [create, update, delete] }
-      { allow: groups, groups: ["admin"], operations: [create, update, delete] }
-      { allow: private, operations: [read] }
-    ]
-  ) {
+  @model {
   id: ID!
-  firstName: String!
+  email: String!
+  firstName: String
   lastName: String
   biographgy: String
-  managedUser: Boolean!
-  dateOfBirth: String!
+  managedUser: Boolean
+  dateOfBirth: String
   families: [FamilyMember] @connection(keyName: "byMember", fields: ["id"])
   createdAt: String!
 }
@@ -20,16 +14,7 @@ type Member
 type FamilyMember
   @model(queries: null)
   @key(name: "byFamily", fields: ["familyID", "memberID"])
-  @key(name: "byMember", fields: ["memberID", "familyID"])
-  @auth(
-    rules: [
-      {
-        allow: groups
-        groupsField: "familyID"
-        operations: [read, create, update, delete]
-      }
-    ]
-  ) {
+  @key(name: "byMember", fields: ["memberID", "familyID"]) {
   id: ID!
   familyID: ID!
   memberID: ID!
@@ -38,13 +23,7 @@ type FamilyMember
 }
 
 type Family
-  @model
-  @auth(
-    rules: [
-      { allow: groups, groups: ["admin"], operations: [create, update, delete] }
-      { allow: private, operations: [read, create, update, delete] }
-    ]
-  ) {
+  @model {
   id: ID!
   name: String!
   description: String

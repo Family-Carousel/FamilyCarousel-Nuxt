@@ -5,6 +5,7 @@ export const onCreateMember = /* GraphQL */ `
   subscription OnCreateMember {
     onCreateMember {
       id
+      email
       firstName
       lastName
       biographgy
@@ -29,6 +30,7 @@ export const onUpdateMember = /* GraphQL */ `
   subscription OnUpdateMember {
     onUpdateMember {
       id
+      email
       firstName
       lastName
       biographgy
@@ -53,6 +55,7 @@ export const onDeleteMember = /* GraphQL */ `
   subscription OnDeleteMember {
     onDeleteMember {
       id
+      email
       firstName
       lastName
       biographgy
@@ -91,6 +94,7 @@ export const onCreateFamilyMember = /* GraphQL */ `
       }
       member {
         id
+        email
         firstName
         lastName
         biographgy
@@ -125,6 +129,7 @@ export const onUpdateFamilyMember = /* GraphQL */ `
       }
       member {
         id
+        email
         firstName
         lastName
         biographgy
@@ -159,6 +164,7 @@ export const onDeleteFamilyMember = /* GraphQL */ `
       }
       member {
         id
+        email
         firstName
         lastName
         biographgy

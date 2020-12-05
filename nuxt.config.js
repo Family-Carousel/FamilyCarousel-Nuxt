@@ -37,8 +37,8 @@ export default {
    */
   plugins: [
     { src: "~/plugins/amplify.js", mode: "client" },
-    "~/plugins/auth.js",
-    "~/plugins/notifier.js",
+    { src: "~/plugins/auth.js" },
+    { src: "~/plugins/notifier.js" },
   ],
   /*
    ** Auto import components

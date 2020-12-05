@@ -8,6 +8,7 @@ export const createMember = /* GraphQL */ `
   ) {
     createMember(input: $input, condition: $condition) {
       id
+      email
       firstName
       lastName
       biographgy
@@ -35,6 +36,7 @@ export const updateMember = /* GraphQL */ `
   ) {
     updateMember(input: $input, condition: $condition) {
       id
+      email
       firstName
       lastName
       biographgy
@@ -62,6 +64,7 @@ export const deleteMember = /* GraphQL */ `
   ) {
     deleteMember(input: $input, condition: $condition) {
       id
+      email
       firstName
       lastName
       biographgy
@@ -103,6 +106,7 @@ export const createFamilyMember = /* GraphQL */ `
       }
       member {
         id
+        email
         firstName
         lastName
         biographgy
@@ -140,6 +144,7 @@ export const updateFamilyMember = /* GraphQL */ `
       }
       member {
         id
+        email
         firstName
         lastName
         biographgy
@@ -177,6 +182,7 @@ export const deleteFamilyMember = /* GraphQL */ `
       }
       member {
         id
+        email
         firstName
         lastName
         biographgy
