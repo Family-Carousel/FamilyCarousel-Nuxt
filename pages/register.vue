@@ -135,7 +135,7 @@ export default {
           content: "Welcome to Family Carousel!",
           color: "success",
         });
-        this.$router.push("/");
+        this.$router.push("/family/setupprofile");
       } catch (err) {
         this.$notifier.showMessage({
           content: err.message || err,

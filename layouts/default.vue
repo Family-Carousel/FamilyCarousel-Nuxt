@@ -12,7 +12,7 @@
       </div>
       <div v-else>
         <span> Welcome {{ $auth.email }} </span>
-        <v-btn class="hidden-sm-and-down" text to="/family/organizer">
+        <v-btn class="hidden-sm-and-down" text to="/family/carousel">
           Carousel
         </v-btn>
         <v-btn

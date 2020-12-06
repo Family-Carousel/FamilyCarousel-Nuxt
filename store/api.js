@@ -6,7 +6,7 @@ export const state = () => ({});
 
 export const getters = {
   authMode: (state, getters, rootState) =>
-    rootState.auth.IsAutenticated ? "AMAZON_COGNITO_USER_POOLS" : "API_KEY",
+    rootState.auth.IsAutenticated ? `AMAZON_COGNITO_USER_POOLS` : `API_KEY`,
 };
 
 export const actions = {

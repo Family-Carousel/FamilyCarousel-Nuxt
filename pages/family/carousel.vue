@@ -4,17 +4,19 @@
       <v-col>
         <v-row>
           <v-col>
-            <v-img src="/logo2.png" class="mb-8" contain height="200"></v-img>
+            <v-img
+              src="/logo2.png"
+              class="mb-n5 mt-n5"
+              contain
+              height="250"
+            ></v-img>
           </v-col>
         </v-row>
         <v-row>
-          <v-col>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" class="center_button"
-              >Choose your family from below or click here to create a new one
-              now</v-btn
-            >
-            <v-spacer></v-spacer>
+          <v-col cols="12">
+            <div style="text-align: center">
+              <v-btn color="primary" to="create"> Create new Family </v-btn>
+            </div>
           </v-col>
         </v-row>
         <v-container fluid>
@@ -49,10 +51,13 @@
 
 <script>
 export default {
-  async asyncData({ store }) {
-    const memberEmail = store.$authService.id;
-    const member = await store.dispatch("member/getUser", memberEmail);
+  async asyncData({ store, redirect }) {
+    const memberUsername = store.$authService.id;
+    const member = await store.dispatch("member/getUser", memberUsername);
     console.log(`Member received from API: ${JSON.stringify(member, null, 2)}`);
+    if (!member.firstName || !member.dateOfBirth) {
+      redirect("/family/carousel");
+    }
     const families = member.families.items;
     return { families };
   },
@@ -60,21 +65,12 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .center_button {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 40%;
-  font-size: 7px;
-}
-
-.isMember {
-  color: red;
-  font: bold 24px/24px Helvetica, Sans-Serif;
-  letter-spacing: -1px;
-  background: rgb(0, 0, 0); /* fallback color */
-  background: rgba(0, 0, 0, 0.9);
-  padding: 3px;
+  width: 20%;
+  margin: -20% -50%;
+  position: relative;
+  top: 50%;
+  left: 50%;
 }
 </style>
